@@ -53,6 +53,14 @@ def main():
     shader = compileProgram(compileShader(vertex_src, GL_VERTEX_SHADER),
                             compileShader(fragment_src, GL_FRAGMENT_SHADER))
 
+    VBO = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, VBO)
+    glBufferData(GL_ARRAY_BUFFER, vertices.nbytes, vertices, GL_STATIC_DRAW)
+
+    position = glGetAttribLocation(shader, "a_position")
+    glEnableVertexAttribArray(position)
+    glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(0))
+
     glUseProgram(shader)
     glClearColor(0, 0.1, 0.1, 1)
 
