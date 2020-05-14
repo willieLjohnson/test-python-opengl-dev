@@ -1,6 +1,8 @@
 import glfw
 from OpenGL.GL import *
 import numpy as np
+from math import sin, cos
+
 
 def main():
     # Initialize the library
@@ -38,6 +40,13 @@ def main():
     while not glfw.window_should_close(window):
         # Render here, e.g. using pyOpenGL
         glClear(GL_COLOR_BUFFER_BIT)
+
+        ct = glfw.get_time()
+
+        glLoadIdentity()
+        glScale(abs(sin(ct)), abs(sin(ct)), 1)
+        glRotatef(sin(ct) * 45, 0, 0, 1)
+        glTranslatef(sin(ct), cos(ct), 0)
 
         glDrawArrays(GL_TRIANGLES, 0, 3)
         # Swap front and back buffers
